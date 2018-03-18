@@ -5,12 +5,7 @@ public class quicksort_ex{
     int [] input_data1 = {3,2,1};
     int [] input_data2 = {1,2,3};
     int [] input_data3 = {9,8,7,6,5,4,3,2,1,0};
-    //int [] input_data3 = {2,3,7,8,1,4,6,9,5};
 
-    //for(int i=0; i<input_data.length;i++)
-    //  System.out.format("%d ", input_data[i]);
-
-    //System.out.println("size: "+input_data.length);
     quicksort(input_data1, 0, input_data1.length-1);
     for(int i=0; i<input_data1.length;i++)
       System.out.format("%d ", input_data1[i]);
