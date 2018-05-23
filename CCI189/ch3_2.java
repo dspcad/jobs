@@ -5,36 +5,58 @@ public class ch3_2{
     public static void main(String args[]){
         Random rnd = new Random();
         int n = Integer.valueOf(args[0]).intValue();
-        Stack<Integer> s1 = new Stack<Integer>();
-        Stack<Integer> s_min = new Stack<Integer>();
+        stackMin s = new stackMin();
         int val;
-        int min = Integer.MAX_VALUE;
 
         for(int i=0;i<n;i++){
             val = rnd.nextInt(100);
             System.out.printf("%d ", val);
-            s1.push(val);
-            if(val < min){
-                min = val;
-                s_min.push(min);
-            }
+            s.push(val);
         }
         System.out.println("");
 
-        while(!s1.empty()){
-            if(s1.peek() == s_min.peek()){
-                System.out.printf("Element: %d ", s1.pop());
-                System.out.printf("Min:     %d ", s_min.pop());
-            }
-            else{
-                System.out.printf("Element: %d ", s1.pop());
-                System.out.printf("Min:     %d ", s_min.peek());
-            }
-
+        while(!s.empty()){
+            System.out.printf("Element: %d ", s.peek());
+            System.out.printf("Min:     %d ", s.min());
             System.out.println("");
+            s.pop();
         }
+
 
     }
     
 }
 
+
+class stackMin extends Stack<Integer>{
+    private Stack<Integer> s_min;
+
+    public stackMin(){
+        super();
+        this.s_min = new Stack<Integer>();
+    }
+
+    public void push(int value){
+        super.push(value);
+        if(value < this.min())
+            s_min.push(value);
+
+    }
+
+    public Integer pop(){
+        int value = super.pop();
+        if(value == s_min.peek())
+            s_min.pop();
+        
+            
+        return value;
+    }
+
+
+    public int min(){
+        if(s_min.empty())
+            return Integer.MAX_VALUE;
+        else
+            return s_min.peek();
+    }
+}
