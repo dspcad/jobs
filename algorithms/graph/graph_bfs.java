@@ -27,14 +27,61 @@ public class graph_bfs{
         g.addEdge(n4,n6);
         g.addEdge(n5,n3);
         g.addEdge(n5,n4);
+        g.addEdge(n5,n6);
         g.addEdge(n5,n7);
         g.addEdge(n6,n4);
+        g.addEdge(n6,n5);
         g.addEdge(n6,n7);
         g.addEdge(n7,n5);
         g.addEdge(n7,n6);
 
         g.printGraph();
+
+        BFS(g, n5);
     }
+
+    public static void BFS(graph g, graphNode src){
+        src.color = 1;
+        src.distance = 0;
+        
+        myQueue Q = new myQueue();
+        Q.enqueue(src);
+ 
+        while(Q.size() != 0){
+            graphNode u = Q.dequeue();
+            for(graphNode v : g.adjList.get(u.node)){
+                if(v.color == 0){
+                    v.color = 1;
+                    v.distance = u.distance + 1;
+                    v.predecessor = u;
+                    Q.enqueue(v);
+                }
+            }
+            u.color = 2;
+            System.out.println("Vertex "+u.node+" is vistited.");
+        }
+    }
+}
+
+class myQueue{
+    public LinkedList<graphNode> l;
+
+    public myQueue(){
+        this.l = new LinkedList<graphNode>();
+    }
+
+    public void enqueue(graphNode node){
+        this.l.add(node);
+    }
+
+    public graphNode dequeue(){
+        return this.l.poll();
+    }
+
+    public int size(){
+        return this.l.size();
+    }
+
 }
 
 class graph{
