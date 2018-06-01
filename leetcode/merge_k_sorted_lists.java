@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Collections;
+import java.util.PriorityQueue;
 
 public class merge_k_sorted_lists{
     public static void main(String args[]){
@@ -28,9 +29,31 @@ public class merge_k_sorted_lists{
         for(int i=0;i<k;i++)
             System.out.println(sorted_lists.get(i));
 
-        LinkedList<Integer> result = mergeKLists(sorted_lists);
+        //LinkedList<Integer> result = mergeKLists(sorted_lists);
+        System.out.println("Output:");
+        LinkedList<Integer> result = mergeKListsWithHeap(sorted_lists);
         System.out.println(result);
         
+    }
+
+
+    public static LinkedList<Integer> mergeKListsWithHeap(ArrayList<LinkedList<Integer>> lists) {
+        LinkedList<Integer> result = new LinkedList<Integer>();
+        PriorityQueue<Integer> heap = new PriorityQueue<Integer>();
+
+        while(!isEmpty(lists)){
+            for(int i=0;i<lists.size();i++){
+                if(lists.get(i).size() > 0)
+                    heap.add(lists.get(i).poll());
+            }
+
+            result.add(heap.poll());
+        }
+
+        while(heap.size() != 0)
+            result.add(heap.poll());
+
+        return result;
     }
 
     public static LinkedList<Integer> mergeKLists(ArrayList<LinkedList<Integer>> lists) {
