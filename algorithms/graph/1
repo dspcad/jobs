@@ -63,7 +63,6 @@ public class graph_dfs{
     public static void DFS_VISIT(graph g, graphNode node){
         time = time + 1;
         node.discover_time = time;
-        //for the undirected graph, node.visitied has to be marked first.
         node.visited = true;
         for(graphNode neighbor : g.adjList.get(node.name)){
             if(!neighbor.visited){
