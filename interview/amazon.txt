@@ -1,0 +1,15 @@
+amazon真的特别重视leadership principle,问着问着会突然说一句，这符合了xxx principle we have here，让我突然感觉自己在背八荣八耻。
+言归正传，amazon的楼戒备非常森严，整个面试过程我被关在一间小的interview的房间，连去洗手间他们都要escort me in and out....
+题目一：给你一个maze（with obstacles），给你一串要去拿的amazon product,作为机器人找到最短的路径
+题目二：word break I leetcode
+题目三：Number of Islands leetcode忘了，当时写的时候也不记得这道题目的写法，
+反正就是一边写一边想。写完了以后interviewer说hmm这道题目还可以这么approach.
+题目四：Merge K sorted list.
+Interview 5: 就是hr和你讨论past experience.
+
+
+发一个lab126的电面面经，上来先是聊了一下工作经历，问了一些java基础知识，override和overload区别，
+如何避免死锁等等。然后是一道看代码写结果的题目，跟ArrayList.subList有关。之后是一道算法题，
+输入是一个字典和一个char型的矩阵二维数组，找出该矩阵中所有从左到右方向或者从上到下方向的能组成的单词并且该单词在字典中出现。
+楼主第一反应是用trie，但是对使用trie没有信心，于是用了最基础的dfs算法。写完之后跟面试官交流发现果然还是应该用trie。
+唉 好好学习一下trie的使用方法吧。Move on了。
