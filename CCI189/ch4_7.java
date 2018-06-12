@@ -6,9 +6,12 @@ import java.util.ArrayList;
 
 class ch4_7{
     public static int time_stamp;
+    public static LinkedList<graphNode> result;
 
     public static void main(String args[]){
         time_stamp = -1;
+        result = new LinkedList<graphNode>();
+
         graph g1 = new graph();
 
         graphNode a = new graphNode("a");
@@ -46,13 +49,9 @@ class ch4_7{
                 DFS(v, g1);
         }
         
-        ArrayList<graphNode> list = new ArrayList<graphNode>();
-        for(graphNode v : g1.adjList.keySet())
-            list.add(v);
 
-        Collections.sort(list, new nodeComparator());
 
-        for(graphNode v : list){
+        for(graphNode v : result){
             System.out.println("Node: "+v.name);
             System.out.println("  dicover time: "+ v.discover_time);
             System.out.println("  finish  time: "+ v.finish_time);
@@ -64,24 +63,21 @@ class ch4_7{
         if(!u.visited){
             time_stamp++;
             u.discover_time = time_stamp;
+           
+            //traverse edges
             for(graphNode v : g.adjList.get(u))
                 DFS(v, g);
 
             time_stamp++;
             u.finish_time = time_stamp;
             u.visited = true;
+            result.addFirst(u);
         }
     }
 
     
 }
 
-class nodeComparator implements Comparator<graphNode>{
-    @Override
-    public int compare(graphNode n1, graphNode n2){
-        return n2.finish_time - n1.finish_time;
-    }
-}
 
 class graph{
     public HashMap<graphNode, LinkedList<graphNode>> adjList;
