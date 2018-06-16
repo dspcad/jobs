@@ -1,15 +1,28 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class ch4_8{
     public static void main(String args[]){
-        treeNode n0 = new treeNode(20);
-        treeNode n1 = new treeNode(10);
-        treeNode n2 = new treeNode(30);
-        treeNode n3 = new treeNode(5);
-        treeNode n4 = new treeNode(15);
-        treeNode n5 = new treeNode(3);
-        treeNode n6 = new treeNode(7);
-        treeNode n7 = new treeNode(17);
+        treeNode n0 = new treeNode("n0");
+        treeNode n1 = new treeNode("n1");
+        treeNode n2 = new treeNode("n2");
+        treeNode n3 = new treeNode("n3");
+        treeNode n4 = new treeNode("n4");
+        treeNode n5 = new treeNode("n5");
+        treeNode n6 = new treeNode("n6");
+        treeNode n7 = new treeNode("n7");
+        treeNode n8 = new treeNode("n8");
+
+        ArrayList<treeNode> nodeList = new ArrayList<treeNode>();
+        nodeList.add(n0);
+        nodeList.add(n1);
+        nodeList.add(n2);
+        nodeList.add(n3);
+        nodeList.add(n4);
+        nodeList.add(n5);
+        nodeList.add(n6);
+        nodeList.add(n7);
+        nodeList.add(n8);
 
         n0.left  = n1;
         n0.right = n2;
@@ -27,10 +40,16 @@ public class ch4_8{
         printBFS(queue);
 
 
-        treeNode result = findCommonAncestor(n0, n7, n4);
+        int p = Integer.valueOf(args[0]);
+        int q = Integer.valueOf(args[1]);
 
-        if(result != null)
-            System.out.println("The common ancestor: "+result.val);
+        for(treeNode node : nodeList)
+            node.visited = false;
+
+        treeNode result = findCommonAncestor(n0, nodeList.get(p), nodeList.get(q));
+
+        if(result != null && nodeList.get(p).visited && nodeList.get(q).visited)
+            System.out.println("The common ancestor: "+result.name);
         else
             System.out.println("No such node.");
         
@@ -38,25 +57,38 @@ public class ch4_8{
     }
 
     public static treeNode findCommonAncestor(treeNode root, treeNode p, treeNode q){
-        if(root == p)
-            return p;
+        if(root == null) return null;
 
-        if(root == q)
-            return q;
+        //find p
+        if(root == p){
+             root.visited = true;
+             if(findNode(root, q))
+                 q.visited = true;
 
-        if(findNode(root.left, p) && findNode(root.left, q))
-            return findCommonAncestor(root.left, p, q);
+             return root;
+        }
 
-        if(findNode(root.right, p) && findNode(root.right, q))
-            return findCommonAncestor(root.right, p, q);
+        //find q
+        if(root == q){
+             root.visited = true;
+             if(findNode(root, p))
+                 p.visited = true;
 
-        if(findNode(root.right, p) && findNode(root.left, q))
+             return root;
+        }
+
+        treeNode x = findCommonAncestor(root.left, p, q);
+        treeNode y = findCommonAncestor(root.right, p, q);
+
+
+        //p and q in two different subtree with the node root
+        if(x != null && y != null)
             return root;
 
-        if(findNode(root.left, p) && findNode(root.right, q))
-            return root;
 
-        return null;
+        //if one side is null, it is no harm to pass p or q
+        //passing p or q up doesn't destroy the logic
+        return x == null ? y : x;
     }
 
 
@@ -82,7 +114,7 @@ public class ch4_8{
     public static void printBFS(LinkedList<treeNode> Q){
         while(Q.size() != 0){
             treeNode node = Q.poll();
-            System.out.println("node value: "+node.val);
+            System.out.println("node: "+node.name);
             node.visited = true;
             if(node.left != null && node.left.visited == false)
                 Q.add(node.left);
@@ -94,13 +126,13 @@ public class ch4_8{
 }
 
 class treeNode{
-    public int val;
+    public String name;
     public treeNode left;
     public treeNode right;
     public boolean visited;
 
-    public treeNode(int value){
-        this.val = value;
+    public treeNode(String str){
+        this.name = str;
         this.visited = false;
         this.left = null;
         this.right = null;
