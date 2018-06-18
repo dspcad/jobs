@@ -44,7 +44,34 @@ public class ch4_12{
             countPath(elem, target_sum, 0);
 
         System.out.println("The target sum: "+target_sum);
-        System.out.println("The total paths: "+count);
+	System.out.println("The total paths: "+count);
+        System.out.println("The total paths: "+countPathRecursive(root, +target_sum));
+
+        
+    }
+
+    public static int countPathRecursive(treeNode node, int target_sum){
+        if(node == null) return 0;
+
+        int current_num = countPathFromNode(node, target_sum, 0);
+        int left_num = countPathRecursive(node.left, target_sum);
+        int right_num = countPathRecursive(node.right, target_sum);
+
+        return current_num+left_num+right_num;
+    }
+
+    public static int countPathFromNode(treeNode node, int target_sum, int partial_sum){
+        if(node == null) return 0;
+
+        partial_sum += node.val;
+        int total_path = 0;
+        if(partial_sum == target_sum)
+            total_path++;
+
+        total_path += countPathFromNode(node.left, target_sum, partial_sum);
+        total_path += countPathFromNode(node.right, target_sum, partial_sum);
+
+        return total_path;
     }
 
     public static void countPath(treeNode node, int target_sum, int partial_sum){
