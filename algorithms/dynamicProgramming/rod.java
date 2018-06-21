@@ -2,6 +2,8 @@ import java.util.HashMap;
 
 public class rod{
     static HashMap<Integer,Integer> r_tbl = new HashMap<Integer,Integer>();
+    static HashMap<Integer,Integer> s_tbl = new HashMap<Integer,Integer>();
+
     public static void main(String args[]){
         int n = Integer.valueOf(args[0]).intValue();
 
@@ -23,6 +25,15 @@ public class rod{
 
         mem_cut_off_price(tbl, n);
         System.out.println("The revenue: "+r_tbl.get(n));
+
+ 
+        int sol;
+        do{       
+            sol = s_tbl.get(n);
+            System.out.println("cut off index: "+sol);
+            n -= sol;
+        }
+        while(n != 0);
     }
 
     public static void mem_cut_off_price(int [] p, int n){
@@ -41,8 +52,10 @@ public class rod{
 
             q = p[i]+r_tbl.get(n-i);
             
-            if(q > max)
+            if(q > max){
                 max = q;
+                s_tbl.put(n,i);
+            }
             
         }
 
