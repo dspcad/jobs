@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ch4_12{
     public static int count = 0;
@@ -45,9 +46,39 @@ public class ch4_12{
 
         System.out.println("The target sum: "+target_sum);
 	System.out.println("The total paths: "+count);
-        System.out.println("The total paths: "+countPathRecursive(root, +target_sum));
+        System.out.println("The total paths: "+countPathRecursive(root, target_sum));
+ 
+        HashMap<Integer,Integer> tbl = new HashMap<Integer,Integer>();       
+        System.out.println("The total paths: "+countPathWithSum(root, target_sum, 0, tbl));
+    }
 
-        
+    public static int countPathWithSum(treeNode node, int target_sum, int running_sum, HashMap<Integer,Integer> tbl){
+        if(node == null) return 0;
+
+        running_sum += node.val;
+        int sum = running_sum - target_sum;
+        int total_path = tbl.getOrDefault(sum,0);
+
+        if(running_sum == target_sum)
+            total_path++;
+
+        increaseTbl(running_sum, tbl, 1);
+        total_path += countPathWithSum(node.left, target_sum, running_sum, tbl);
+        total_path += countPathWithSum(node.right, target_sum, running_sum, tbl);
+        increaseTbl(running_sum, tbl, -1);
+
+        return total_path;
+    }
+
+    public static void increaseTbl(int sum, HashMap<Integer,Integer> tbl, int delta){
+        int count = tbl.getOrDefault(sum, 0)+delta;
+ 
+        if(count == 0){
+            tbl.remove(sum);
+        }
+        else{
+            tbl.put(sum,count);
+        }
     }
 
     public static int countPathRecursive(treeNode node, int target_sum){
