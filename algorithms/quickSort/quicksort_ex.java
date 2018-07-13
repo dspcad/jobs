@@ -6,6 +6,11 @@ public class quicksort_ex{
     int [] input_data2 = {1,2,3};
     int [] input_data3 = {9,8,7,6,5,4,3,2,1,0};
 
+    insertionSort(input_data3);
+    for(int i=0; i<input_data3.length;i++)
+      System.out.format("%d ", input_data3[i]);
+    System.out.println("");
+
     quicksort(input_data1, 0, input_data1.length-1);
     for(int i=0; i<input_data1.length;i++)
       System.out.format("%d ", input_data1[i]);
@@ -23,6 +28,15 @@ public class quicksort_ex{
       System.out.format("%d ", input_data3[i]);
 
     System.out.println("");
+  }
+
+  public static void insertionSort(int [] target_array){
+    for(int i=1;i<target_array.length;i++){
+      for(int j=0;j<i;j++){
+        if(target_array[i]<target_array[j])
+          swap(target_array, i, j);
+      }
+    }
   }
 
   public static void quicksort(int [] target_array, int start, int end){
