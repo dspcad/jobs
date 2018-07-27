@@ -2,30 +2,64 @@
 
 public class kmp{
     public static void main(String args[]){
-        int [] num1 = {1,2,3,4,5};
-        int [] num2 = {2,3,4,7,6};
-        int max = Integer.MIN_VALUE;
-        int max_idx = 0;
+        String pattern = "annacanna";
+        String target_str = "annbcdanacadsannannacanna";
 
-        for(int i=0;i<num1.length;i++){
-            int count = 0;
-            int j = 0;
-            while(i+j<num1.length && j<num2.length){
-                if(num1[i+j] != num2[j])
-                    break;
-                else
-                    count++;
+        int [] overlay_fun = compute_overlay(pattern);
 
-                j++;
+        for(int i=0;i<overlay_fun.length;i++)
+            System.out.println(overlay_fun[i]);
+
+        int find_idx = searchPattern(target_str, pattern, overlay_fun);
+        System.out.println(target_str.substring(find_idx, target_str.length()));
+
+    }
+
+    public static int searchPattern(String target, String pattern, int [] overlay_fun){
+        int pattern_index = 0;
+        int target_index = 0;
+
+        int pattern_length = pattern.length();
+        int target_length = target.length();
+
+        while(pattern_index < pattern_length && target_index < target_length){
+            if(pattern.charAt(pattern_index) == target.charAt(target_index)){
+                pattern_index++;
+                target_index++;
             }
-
-            if(count > max){
-                max_idx = i;
-                max = count;
+            else if(pattern_index == 0){
+                target_index++;
+            }
+            else{
+                pattern_index = overlay_fun[pattern_index-1]+1;
             }
         }
- 
-        System.out.println("The index: "+max_idx);    
-        System.out.println("Length: "+max);    
+
+        if(pattern_index == pattern_length)
+            return target_index-pattern_index;
+        else 
+            return -1;
+
+    }
+
+    public static int [] compute_overlay(String pattern){
+        int [] overlay_function = new int[pattern.length()];
+        overlay_function[0] = -1;
+
+        for(int i=1;i<pattern.length();i++){
+            int index = overlay_function[i-1];
+
+            while(index >=0 && pattern.charAt(i) != pattern.charAt(index+1)){
+                index = overlay_function[index];
+            }
+
+            if(pattern.charAt(i) == pattern.charAt(index+1))
+                overlay_function[i] = index + 1;
+            else
+                overlay_function[i] = -1;
+                
+        }
+
+        return overlay_function;
     }
 }

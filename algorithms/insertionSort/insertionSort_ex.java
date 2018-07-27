@@ -14,21 +14,42 @@ public class insertionSort_ex{
     }
     System.out.println("");
     
-    for(int i=1;i<n;i++){
-      int key = data[i];
+    //for(int i=1;i<n;i++){
+    //  int key = data[i];
 
-      int j=i-1;
-      while(j >=0 && key < data[j]){
-        data[j+1] = data[j];
-        j--;
-      }
+    //  int j=i-1;
+    //  while(j >=0 && key < data[j]){
+    //    data[j+1] = data[j];
+    //    j--;
+    //  }
 
-      data[j+1] = key;
-    }
+    //  data[j+1] = key;
+    //}
+
+    insertion_recur(data,data.length);
 
     for(int i=0;i<n;i++)
       System.out.printf("%4d ", data[i]);
     System.out.println("");
 
+  }
+
+  public static void insertion_recur(int [] A, int n){
+    if(n>1){
+      int key = A[n-1];
+      insertion_recur(A, n-1);      
+
+      int i= n-2;
+      while(i>=0){
+        if(key<A[i])
+          A[i+1] = A[i];
+        else
+          break;
+
+        i--;
+      }
+
+      A[i+1] = key;
+    }
   }
 }

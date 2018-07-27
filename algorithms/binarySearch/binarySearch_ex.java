@@ -12,16 +12,35 @@ public class binarySearch_ex{
         //for(int i=0;i<n;i++)
         //    data[i] = rand.nextInt(10*n);
 
-        //int [] data = {25, 51, 57, 71, 81, 90, 94, 101, 110, 114, 139, 140, 175, 178, 183, 185, 187, 189, 190, 193};
-        int [] data = {25};
-        quickSort(data,0,n-1);
-        for(int i=0;i<n;i++)
-            System.out.printf("%d ", data[i]);
-        System.out.println("");
- 
-        int idx = binarySearch(data,0,n-1,target);
+        int [] data = {25, 51, 57, 71, 81, 90, 94, 101, 110, 114, 139, 140, 175, 178, 183, 185, 187, 189, 190, 193};
+        //int [] data = {25};
+        //quickSort(data,0,n-1);
+        //for(int i=0;i<n;i++)
+        //    System.out.printf("%d ", data[i]);
+        //System.out.println("");
+        //
+        //int idx = binarySearch(data,0,n-1,target);
+        //
+        //System.out.println("Index: "+idx);
 
-        System.out.println("Index: "+idx);
+
+        int start = 0;
+        int end = data.length - 1;
+        int mid = (start+end)/2;
+ 
+        while(start <= end){
+            //System.out.println("val: "+data[mid]);
+            if(target == data[mid]){
+                System.out.println("Index: "+mid);
+                break;
+            }
+            else if(target > data[mid])
+                start = mid + 1;
+            else
+               end = mid - 1;
+
+            mid = (start+end)/2;
+        }
     }
 
     private static int binarySearch(int [] data, int start, int end, int val){

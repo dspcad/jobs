@@ -1,0 +1,28 @@
+看了前面一位同学的面经 今天就顺手做了 题目蛮简单的 后面顺手把题目都记了下。。
+1. 单链表 去除所有等于N的node
+2. fix bug ，一个排好序的数组，找出相差一定数值的pair数
+前面两道coding题可以run测试的，第二题是C
+下面是选择题
+3. 哪个小数能2为底
+4. 只能问yes/no的问题，找出1到1000的那个数
+5. 单链表，有头尾指针，问O（n）的操作是哪个
+6. 定义了word，pairlet, pairdig, letter, digit，问哪几个选项是合法的word
+7. 用一个数组实现stack，给出了push和pop的函数，问要如何初始化index i
+8. 给出了一个loop和p，k，问p，k的关系
+9. 一个递归函数，问output
+10. 每个pixel 0-7，两个相邻的pixel不能相差大于2，问两个pixel，给出了总共有64种，问其中多少种合法
+11. 两个线程（x=1, a=y) 和 （y=1，b=x）一起跑，问最后a, b-google 1point3acres
+12. 这题比较有意思， 大概是这样：
+
+int f(int x){
+if (x<1) return 1;
+else return f(x-1)+g(x);
+}
+int g(int x){
+if (x<2) return 2;
+else return f(x-1)+g(x/2);
+}
+复制代码
+问f（x）的复杂度
+
+另外做题的时候细心些 有些题容易算错。。 希望能帮助大家 为onsite攒个人品。。
